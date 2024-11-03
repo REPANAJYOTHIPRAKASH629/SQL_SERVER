@@ -1,0 +1,58 @@
+Day – 1
+Intro to DBMS
+1920 -> computer
+1930 -> A
+1940 -> b
+1950, 60 -> c lang (English) – Dr. Dennis Ritchie (Bell Labs, US)
+1970 -> c++
+1980 -> Java
+
+10 -> values/ data
+20 -> value / data
+Process the data and get the sum = 30
+Process the data and find the min value = 10
+Process the data and find the max value = 20
+
+Qn : What a language can do?
+Ans : Process the data
+NOTE : language cannot store data
+
+Flat file / notepad / text file/ text doc
+
+TNO, Name, Trainno, DOJ, CoachNO, seatNo, Amt
+101, raj, 1234, mar 21, 2024, S2, 34, 1000 INR
+102, Malathi, 1234, mar 25, 2024, S3, 22, 1200 INR
+
+Flat File Issues
+1.	Size issues
+2.	Security
+3.	No Data Integrity (correctness)
+4.	Data Retrieval
+5.	No index
+6.	C language – complex
+Solution ->	DBMS Concept
+ (1970 IBM ) -> SQL 
+
+Types of DBMS
+1.	HDBMS – (fail)
+2.	NDBMS – (Fail)
+3.	RDBMS – (Success)
+1970 to 1976
+IBM
+Dr. E F Codd
+12 Codd rules
+	If 10 rules has in software 
+Softwares -------SQL---------
+Oracle
+DB2 (IBM)
+SQL server
+Natezza (IBM)
+Postgre SQL
+MySQL
+Tera Data
+
+
+
+
+
+
