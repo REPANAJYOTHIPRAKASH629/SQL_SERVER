@@ -594,12 +594,11 @@ This Cascade feature not work in self-referential table
 
 ![image](https://github.com/user-attachments/assets/77eb2927-8024-410a-8d2f-2521e34cd132)
 
-![Uploading image.png…]()
+![image](https://github.com/user-attachments/assets/5cb1b87d-9c33-4f60-8f6e-015b3759fe23)
 
-![Uploading image.png…]()
+![image](https://github.com/user-attachments/assets/24d766c8-5db3-4878-a24f-814c0761c7a0)
 
-![Uploading image.png…]()
-
+![image](https://github.com/user-attachments/assets/16d698b4-81e9-4ae2-a862-2d03312c20db)
 
 
 
@@ -608,5 +607,48 @@ This Cascade feature not work in self-referential table
 
 
 # Day 13
+
+**SEQUEL -> Structured English Query Language.**
+
+![image](https://github.com/user-attachments/assets/44dc288b-618b-4567-89a4-e71ebabb44b4)
+
+![image](https://github.com/user-attachments/assets/13896cca-bbec-4b18-b189-8792ee9071bf)
+
+
+
+To open SQL Server 2017 / 2019 / 2022
+
+Start -> SSMS (mS SQL Server Management Studio) -> click on this 
+
+
+
+DB -- > 32767 (SYS DB + USER DBS)
+
+System DB
+
+	Master
+
+	Model
+
+	Msdb
+
+	tempdb
+
+User DB
+
+	Ibank
+
+	Wipro…
+
+
+
+Creating a Database
+
+	By using UI 
+
+	Syntax / Command
+
+
+
 
 
