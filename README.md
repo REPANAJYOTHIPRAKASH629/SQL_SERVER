@@ -328,7 +328,285 @@ varchar -> not fixed length like name, height etc..
 
 # Day 8
 
+# Keys
+
+![image](https://github.com/user-attachments/assets/53811d74-2950-4b2e-b8f0-4322543c414f)
+
+RDBMS - Terminology
+
+Table -> Entity
+
+Column -> Attribute
+
+Rows -> Entity Instance
+
+Alternative keys - > unique key
+
+Primary key -> Primary key
+
+Key
+
+It is an attribute (column) or multiple attributes using which anyone can get a single instance (row) from a table
 
 
+![image](https://github.com/user-attachments/assets/2df41a42-4795-410b-a918-9e2318749762)
+
+Why key?
+
+To get a single row
+
+Key will have a unique data (No duplicates)
+
+
+
+Candidate keys
+
+Eid
+
+Ppno
+
+Dlno
+
+Adharno
+
+Phoneno
+
+Email
+
+
+
+
+
+Primary key -> EID
+
+Alternative Key -> ppno, dlno…
+
+Candidate key -> primary key + Alternative key
+
+![image](https://github.com/user-attachments/assets/3038a3b9-779b-4c84-8489-65f75316331d)
+
+![image](https://github.com/user-attachments/assets/35489158-09d0-43b9-b913-f1e3ff696947)
+
+![image](https://github.com/user-attachments/assets/5a3b451b-42aa-44d8-9288-4729016a317b)
+
+
+Composite key 
+
+A key which has multiple attributes is called as composite key.
+
+![image](https://github.com/user-attachments/assets/0ddda644-989c-460d-bee9-b55afcaf5e47)
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+# Day 9
+
+![image](https://github.com/user-attachments/assets/9b1543cf-4cdd-46b0-8d8e-851693e11311)
+
+![image](https://github.com/user-attachments/assets/c54f679b-96f9-402d-93ff-a49ad0f8ab78)
+
+![image](https://github.com/user-attachments/assets/d3689b20-2d39-433d-8216-8a97e86e5ff2)
+
+![image](https://github.com/user-attachments/assets/c96053ea-bb65-42a7-b802-012bfcf59a01)
+
+![image](https://github.com/user-attachments/assets/cfa1fc7d-c987-4c56-b951-dfaff8ab0173)
+
+![image](https://github.com/user-attachments/assets/e35ac044-e1a5-4006-baa3-1364e3c37ee3)
+
+
+Tables can have a single or multiple relationship
+
+Or
+
+Tables may not have relationship
+
+
+
+
+Why Foreign Key
+
+It is going to establish a relationship between 2 tables
+
+Primary key or unique key can become a foreign key in the table
+
+
+
+
+Data modelling
+
+SQL / RDBMS concept
+
+Primary key and Foreign key
+
+Finding relationship between the tables and modify by adding foreign keys and primary keys
+
+
+
+1 – 1 relationship
+
+2 tables
+
+2 PK
+
+2 FK (Only 1 FK)
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+# Day 10
+
+![image](https://github.com/user-attachments/assets/3ef199e5-5713-4a70-a22f-c1452416b275)
+
+
+![image](https://github.com/user-attachments/assets/742e350b-c419-46d0-b707-02960209b989)
+
+
+
+SDLC – Software Development Life Cycle
+
+Requirements -> Analysis & Design -> Coding -> Testing -> Release 
+
+Domain Expert -> Architects / Designers -> Developers/ Programmers -> Testers -> Developers
+
+3 / 4 ->                       2 / 3 ->                                               7 ->                            4 ->                   3
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+# Day 11
+
+![image](https://github.com/user-attachments/assets/35967381-d945-4838-ba2b-4b635ceb3f1a)
+
+![image](https://github.com/user-attachments/assets/c200efe8-c6b6-40e0-adf0-522c844b0f92)
+
+![image](https://github.com/user-attachments/assets/198b2a43-f790-43ae-b880-d8419928b164)
+
+![image](https://github.com/user-attachments/assets/c69dd097-0213-468d-b716-66bb9321da0c)
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+# Day 12
+
+![image](https://github.com/user-attachments/assets/17ef6909-c99a-4203-a382-7f48766f2610)
+
+![image](https://github.com/user-attachments/assets/bfaf265c-8ccd-48b1-a678-13f252d0fcba)
+
+
+
+Can we have duplicate data in a PK
+
+NO
+
+
+
+How many PK per table
+
+1
+
+
+
+How many UK per table
+
+many
+
+
+
+can we have duplicate data in a UK / AK
+
+No
+
+
+
+Can we have duplicate data in a FK
+
+Yes
+
+
+
+Can we have NULLs in a PK
+
+No
+
+
+
+Can we have NULLs in a UK
+
+Yes, but Only ONE
+
+
+
+Can we have NULLs in a FK
+
+Yes
+
+Can we have duplicate data in a FK
+
+Yes
+
+
+
+
+How many FK per Table
+
+Many
+
+
+
+
+Can we create a FK using UK
+
+Yes
+
+
+
+
+**Self-referential Table**
+![image](https://github.com/user-attachments/assets/5cd9229d-a578-40d4-9117-d3805e977d49)
+
+![image](https://github.com/user-attachments/assets/3e178995-6006-4a21-a893-d81593f95ad8)
+
+**Self referential Table**
+
+A FK is referring its own tables PK. Then the table is called as self referential Table
+
+
+
+**Cascade Delete**
+
+
+ON / OFF
+
+In ON option it deletes an entire related data like in in dept. table we are deleting the marketing but it also deletes another tables data will be deleted.
+
+In OFF option we deletes only main data it wont deletes related data.
+
+This Cascade feature not work in self-referential table  
+
+
+![image](https://github.com/user-attachments/assets/77eb2927-8024-410a-8d2f-2521e34cd132)
+
+![Uploading image.png…]()
+
+![Uploading image.png…]()
+
+![Uploading image.png…]()
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+# Day 13
 
 
