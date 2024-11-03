@@ -1508,3 +1508,108 @@ go
 
 ```
 
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+# Day 20
+
+![image](https://github.com/user-attachments/assets/26b1e7e0-9f61-419c-b22e-276f0b53ea5b)
+
+
+![image](https://github.com/user-attachments/assets/17de409e-233e-4ed6-9f7b-6b57b4b0009d)
+
+![image](https://github.com/user-attachments/assets/6de039db-41d5-401e-b9bb-fdcde1d13dd0)
+
+![image](https://github.com/user-attachments/assets/8251eec9-d8ea-45bf-a69b-bb02d49a9434)
+
+
+# **Important Topics**
+**Queries**
+**Stored Procedures**
+**Indexes**
+
+
+```
+
+use [IndianBank]
+go
+
+-- All cols and All Rows
+select * from AccountMaster
+
+
+-- few cols and All Rows
+select ACID, NAME, CBALANCE from AccountMaster
+go
+
+
+-- All cols and few Rows
+select * from AccountMaster
+where BRID = 'BR1'
+go
+
+select * from AccountMaster
+where BRID = 'BR2'
+go
+
+select * from AccountMaster where BRID = 'BR1' and PID = 'SB'
+go
+
+
+select * from AccountMaster where BRID = 'BR1' and PID = 'SB' and CBALANCE >= 10000
+go
+
+-- few cols and few rows
+select ACID, NAME, ADDRESS from AccountMaster where BRID = 'BR1' and PID = 'SB' and CBALANCE >= 10000
+go
+
+select ACID, NAME, ADDRESS from AccountMaster where PID = 'FD'
+go
+
+
+
+-- is it valid
+select acid, acid from AccountMaster
+
+select acid, acid, name, name from AccountMaster
+
+select *, acid, name, * from AccountMaster 
+
+select 5 -- printing 5 (constant) 
+
+select 100 as LuckyName
+
+select 'Java' as Course
+
+select 5 from AccountMaster
+go
+
+select *, 5 as NUM from AccountMaster
+go
+
+select acid, name, cbalance, 18 as Tax from AccountMaster
+go
+
+
+select acid, name, cbalance,'INR' as Currency,18 as Tax from AccountMaster
+go
+
+-- sort
+select * from AccountMaster order by CBALANCE
+go
+
+select * from AccountMaster order by 4 desc
+go
+
+select * from AccountMaster order by 7 asc
+go
+
+select * from AccountMaster order by 7 desc
+go
+
+
+```
+
