@@ -1728,3 +1728,55 @@ go
 
 
 
+
+
+**Style Numbers in Convert()**
+```
+
+**Style**	**Format**	**Output Example**
+
+0	Default	Jan 1 2024 12:00AM
+1	USA	01/01/24
+2	ANSI	24.01.01
+3	British/French	01/01/24
+4	German	01.01.24
+5	Italian	01-01-24
+6	-	24 Jan 01
+7	Default with time	Jan 1, 2024 12:00AM
+8	24-hour format	00:00:00
+9	Default with milliseconds	Jan 1, 2024 12:00:00AM
+10	USA	01-01-2024
+11	Japan	24/01/01
+12	ISO	240101
+13	European format with time	01 Jan 2024 00:00:00
+14	-	00:00:00:000
+20	ODBC canonical	2024-01-01 00:00:00
+21	ODBC canonical (24 hr)	2024-01-01 00:00:00.000
+22	-	01/01/24 00:00:00
+23	ISO 8601 (YYYY-MM-DD)	2024-01-01
+101	USA with century	01/01/2024
+102	ANSI with century	2024.01.01
+103	British/French with century	01/01/2024
+104	German with century	01.01.2024
+105	Italian with century	01-01-2024
+106	-	01 Jan 2024
+107	-	Jan 01, 2024
+108	24-hour time format	00:00:00
+109	Default with milliseconds	Jan 1 2024 12:00:00:000
+110	USA	01-01-2024
+111	Japan	2024/01/01
+112	ISO	20240101
+113	European with milliseconds	01 Jan 2024 00:00:00:000
+120	ODBC canonical	2024-01-01 00:00:00
+121	ODBC canonical with ms	2024-01-01 00:00:00.000
+126	ISO8601	2024-01-01T00:00:00
+127	ISO8601 with Z timezone	2024-01-01T00:00:00Z
+130	Hijri	01 محرم 1446
+131	Hijri with time	01/01/1446 12:00:00 PM
+
+```
+
+
+
+
+
