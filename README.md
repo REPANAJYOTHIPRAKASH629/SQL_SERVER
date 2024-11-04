@@ -1627,7 +1627,8 @@ CAST ( ColName as DataType)
 CONVERT(DataType, ColName, StyleNo)
 
 
-![Uploading image.png…]()
+
+![image](https://github.com/user-attachments/assets/eef78836-0776-448a-bf23-1c16ce5030e9)
 
 
 ```
