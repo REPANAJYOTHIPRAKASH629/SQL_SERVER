@@ -2355,3 +2355,328 @@ HAVING COUNT(city) > 5;
 
 
 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+# Day 24
+
+
+
+
+![image](https://github.com/user-attachments/assets/bc7ea824-a4bc-4816-a44a-0e206f7400f2)
+
+```
+
+-- Date and Time Functions
+
+-- 1. GetDate()
+-- It returns the current date time from system
+
+select GetDate() as TodayDate
+go
+
+
+select GetDate()-1 as YesterdaysDate
+go
+
+
+select GetDate()+1 as TomorrowsDate
+go
+
+
+-- convert() 
+-- This will convert date and time format or style
+
+-- Syntax :
+-- convert(<Data Type>, <date and time value>, <style number>)
+-- Style number is optional
+
+select convert (varchar, getdate())
+go
+
+select convert (varchar, getdate(), 1)
+go
+
+select convert (varchar, getdate(),2)
+go
+
+select convert (varchar, getdate(),3)
+go
+
+select convert (varchar, getdate(),4)
+go
+
+select convert (varchar, getdate(),5)
+go
+
+select convert (varchar, getdate(),6)
+go
+
+select convert (varchar, getdate(),101)
+go
+
+
+
+
+
+-----------------------------------------------------------------------
+-- 2. DateDiff(p1, d1, d2)
+
+select DATEDIFF(YY, '2020/5/22','2024/7/27') as DiffInYears
+
+select DATEDIFF(MM, '2020/5/22','2024/7/27') as DiffInMonths
+
+select DATEDIFF(QQ, '2020/5/22','2024/7/27') as DiffInQuaters
+
+select DATEDIFF(WW, '2020/5/22','2024/7/27') as DiffInWeeks
+
+select DATEDIFF(DD, '2020/5/22','2024/7/27') as DiffInDays
+
+select DATEDIFF(HH, '2020/5/22','2024/7/27') as DiffInHours
+
+select DATEDIFF(MINUTE, '2020/5/22','2024/7/27') as DiffInMinutes
+
+select DATEDIFF(SS, '2020/5/22','2024/7/27') as DiffInSeconds
+
+select DATEDIFF(MS, '2020/5/22','2020/5/27') as DiffInMilliSeconds
+
+
+-- what is my age
+select DATEDIFF(yy, '2002/02/11',getdate()) as DiffInYrs
+
+
+-- age of account
+select acid, name, cbalance, doo, DATEDIFF(mm, doo, getdate()) as AgeOfAccount
+from AccountMaster
+
+-- List the customers who have opened account last month
+select acid, name, cbalance, doo, DATEDIFF(mm, doo, getdate()) as AgeOfAccount
+from AccountMaster
+where DATEDIFF(MM, DOO, getdate()) = 1
+
+-- List the customers who have opened account this year
+select acid, name, cbalance, doo, DATEDIFF(mm, doo, getdate()) as AgeOfAccount
+from AccountMaster
+where DATEDIFF(yy, DOO, getdate()) = 0
+
+-- List the customers who have opened account yesterday
+select acid, name, cbalance, doo, DATEDIFF(mm, doo, getdate()) as AgeOfAccount
+from AccountMaster
+where DATEDIFF(DD, DOO, getdate()) = 1
+
+
+-- List the customers who have opened account Quater
+select acid, name, cbalance, doo, DATEDIFF(mm, doo, getdate()) as AgeOfAccount
+from AccountMaster
+where DATEDIFF(QQ, DOO, getdate()) = 1
+
+
+-- List the customers who have opened account last 3 years
+select acid, name, cbalance, doo, DATEDIFF(mm, doo, getdate()) as AgeOfAccount
+from AccountMaster
+where DATEDIFF(yy, DOO, getdate()) <= 3
+
+
+
+---------------------------------------------------------------------------
+-- 3. DatePart(yy/mm/dd/qq, <date> )
+-- It returns the part of the date. It returns always an Integer. It takes 2 arguments
+
+select DATEPART(YY, getdate()) as year
+
+select DATEPART(MM, getdate()) as Month
+
+select DATEPART(QQ, getdate()) as quarter
+
+select DATEPART(DD, getdate()) as day
+
+
+-- list the customers who have opened accounts in the year 2024
+select acid, name, cbalance, doo
+from AccountMaster
+where DATEPART(yy, doo) = 2024
+
+
+
+-- list the customers who have opened accounts in the year april 2024
+select acid, name, cbalance, doo
+from AccountMaster
+where DATEPART(yy, doo) = 2024 and DATEPART(mm, doo) = 4
+
+
+-- list the customers who have opened accounts in the 2024/april/14
+-- right way to practice
+select acid, name, cbalance, doo
+from AccountMaster
+where DATEPART(yy, doo) = 2024 and DATEPART(mm, doo) = 4 and DATEPART(dd, doo) = 14
+
+
+-- year wise total balance
+select datepart(yy, doo) as YNo, sum(cbalance) as totalbal
+from AccountMaster
+group by datepart(yy, doo)
+
+
+
+
+-- year wise total balance and quater wise
+select datepart(yy, doo) as YNo,'Q' + cast(DATEPART(QQ, doo) as varchar) as QrtNo ,sum(cbalance) as totalbal
+from AccountMaster
+group by datepart(yy, doo), cast(DATEPART(QQ, doo) as varchar)
+
+
+```
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+# Day 25
+
+
+
+![image](https://github.com/user-attachments/assets/28b300d3-b44b-4fd3-899f-0a4e6f0919d9)
+
+
+![image](https://github.com/user-attachments/assets/29e8a33c-c959-4ff3-9ca1-e2862095dda3)
+
+
+```
+
+-- Date and time functions continuation
+-- 4. DateName()
+-- It returns the name of the day or month. It always returns the string. It takes 2 arguments
+
+-- datename(dw,'2010/12/22')
+
+select datename (DW, '2010/12/22') as DayOfWeek
+
+select datepart (DD, getDate()) as DayNo
+select datename (DD, getDate()) as DayNo
+select datename (DW, getDate()) as DayName
+
+select datepart (MM, getDate()) as MonthNo
+select datename (MM, getDate()) as MonthName
+
+-- year wise, Qtr wise, Month Wise no of acccounts opened
+select datepart (YY, doo) as YNO, 'Q' +datename (QQ, doo) as QNO, datename (MM, doo) as MonthName, Count(*) as cnt
+from AccountMaster
+group by datepart (YY, doo), datename (QQ, doo) , datename (MM, doo) 
+
+
+-- or
+select year(doo) as YNO, 'Q' +datename (QQ, doo) as QNO, datename (MM, doo) as MonthName, Count(*) as cnt
+from AccountMaster
+group by year(doo), datename (QQ, doo) , datename (MM, doo) 
+
+
+-- Find out the last month
+select	datename (MM, getDate())-1 as MonthName
+
+
+
+-- 5. DateAdd()
+-- It adds / substracts days / months / years to the given date and returns the future / past time
+-- It takes 3 arguments
+
+select DATEADD(DD, 40, getdate()) as Futuredate
+select DATEADD(YY, 4, getdate()) as Futuredate
+select DATEADD(MM, 10, getdate()) as Futuredate
+select DATEADD(QQ, 2, getdate()) as Futuredate
+
+
+select DATEADD(DD, -40, getdate()) as Pastdate
+
+
+-- 6. EOMonth()
+-- It gives us last day from the given date
+-- it takes 1 argument
+
+select EOMONTH(getdate()) as month
+
+select EOMONTH('2012/2/23')
+
+
+select acid, name, cbalance, doo as 'First_day', DATEADD(DD,15,DOO) as NextDueDate
+from AccountMaster
+
+
+select acid, name, cbalance, doo as 'First_day', EOMonth(DOO) as Duedate
+from AccountMaster
+
+
+select acid, name, cbalance, doo as 'First_day', DATEADD(DD,15,DOO) as NextDueDate, EOMonth(DOO) as Duedate
+from AccountMaster
+
+
+
+```
+
+
+
+
+
+
+![image](https://github.com/user-attachments/assets/527314f5-0c4e-40ff-8819-ebbb4877dc3f)
+
+
+![image](https://github.com/user-attachments/assets/ceafa26c-2de3-4c1b-a6dc-7b9f5b543a82)
+
+
+![image](https://github.com/user-attachments/assets/f2904e7d-2f69-4b05-9c91-30a30a124f7c)
+
+
+![image](https://github.com/user-attachments/assets/8d77c653-3976-437c-8e59-77c38a3bb9d3)
+
+
+![image](https://github.com/user-attachments/assets/8c6f8581-c6f9-478f-9d8e-6bf75e23af3f)
+
+
+![image](https://github.com/user-attachments/assets/514aad7c-413e-43d2-9163-093d5c0d377f)
+
+
+
+
+
+```
+
+-- top n
+select top 10 * from AccountMaster
+
+
+select top 100 * from AccountMaster
+
+-- top n percent
+select top 10 percent * from AccountMaster
+
+
+
+----------------------------------------------------------------------
+
+-- HAVING clause
+
+select pid, count(*) as cnt
+from AccountMaster
+group by PID
+
+
+
+select pid, count(*) as cnt
+from AccountMaster
+where BRID = 'BR1' 
+group by PID
+having count(*) >= 5
+
+
+
+select pid, sum(CBALANCE) as cnt
+from AccountMaster
+where BRID = 'BR1' 
+group by PID
+having sum(CBALANCE) > 30000
+
+
+```
