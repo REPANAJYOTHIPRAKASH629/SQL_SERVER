@@ -2680,3 +2680,160 @@ having sum(CBALANCE) > 30000
 
 
 ```
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+# Day 26
+
+
+```
+
+-- Store the result se into new table
+select * into AM_SB_Customers from accountmaster where pid = 'SB';
+
+-- read
+select * from AM_SB_Customers
+
+
+-- drop table
+drop table AM_SB_Customers
+
+-- Aggregate
+select brid, count(*) as cnt into BranchWiseCustCnt
+from AccountMaster
+group by BRID
+
+-- read
+select * from BranchWiseCustCnt where BRID = 'BR1';
+
+-- backup creation 
+-- permanent Tables
+-- original 
+select * into am_bkp_nov192024 from AccountMaster
+
+-- new table
+select * from am_bkp_nov192024
+
+
+-- duplicate structure from another table
+select * into am_bkp from AccountMaster where 1=2
+
+
+
+-- read
+select * from am_bkp
+
+
+
+-- Temporary tables
+-- Local
+select * into #tmptable from AccountMaster where pid = 'SB'
+
+
+-- read
+select * from #tmptable
+
+-- drop
+drop table #tmptable
+
+
+
+
+-- Temporary tables
+-- Global
+select * into ##temptable from AccountMaster where pid = 'SB'
+
+
+-- read
+select * from ##temptable
+
+-- drop
+drop table ##temptable
+
+
+
+-- creating local tmp tables
+create table #emp
+(
+	eid int primary key,
+	empname varchar(100) not null,
+	salary money null
+)
+
+
+-- insert
+insert into #emp values(1, 'Ram', 1000)
+insert into #emp values(2, 'Abhi', 2000)
+go
+
+-- read
+select * from #emp
+
+
+-- creating global tmp tables
+create table ##empp
+(
+	eid int primary key,
+	empname varchar(100) not null,
+	salary money null
+)
+
+
+-- insert
+insert into ##empp values(1, 'Ram', 1000)
+insert into ##empp values(2, 'Abhi', 2000)
+go
+
+-- read
+select * from ##empp
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+# Day 27
+
+
+![image](https://github.com/user-attachments/assets/01c807f1-50b7-4c02-8d08-196eb0e5f81a)
+
+
+![image](https://github.com/user-attachments/assets/6cddbf19-09f6-413d-b9cc-fcd28e3dae37)
+
+-- why joins
+-- To retreive the data from multiple tables
+
+-- NOTE -> 1. we must have the common columns to join the tables
+--	-> 2. Max 255 tables can be joined in sql
+
+
+![image](https://github.com/user-attachments/assets/96602e85-d204-4f9c-83ae-b1f7c0c3adc0)
+
+
+
+We need to create a diagrams when we doesn’t know the relationships between tables
+![image](https://github.com/user-attachments/assets/c727d339-445a-4d57-ad2d-90bd16e01f3b)
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+# Day 28
