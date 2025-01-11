@@ -2837,3 +2837,274 @@ We need to create a diagrams when we doesn’t know the relationships between ta
 
 
 # Day 28
+
+![image](https://github.com/user-attachments/assets/eef68da8-65bc-41e2-bc05-43ef37adbf27)
+
+![image](https://github.com/user-attachments/assets/884cb536-bb12-40f6-9066-67c444a7401a)
+
+```
+
+use IndianBank
+go
+
+select * from AccountMaster;
+
+Select * from TransactionMaster;
+
+--Inner Join
+select * 
+from AccountMaster, TransactionMaster
+where AccountMaster.ACID = TransactionMaster.ACID
+
+-- Join 3 tables
+/*
+select *
+from a, b,C
+where a.pk = b.fk and c.pk = a.fk
+*/
+
+-- Join 4 tables
+/*
+select *
+from a, b,c, d
+where a.pk = b.fk and c.pk = a.fk and d.pk = c.fk
+*/
+
+
+
+
+-- 1992 -> new SQL syntax -- ANSI 
+/*
+select *
+from accountmaster as am join transactionmaster as tm
+on am.acid = tm.acid
+*/
+
+-- for 3 tables
+/*
+select * 
+from a join b
+on a.pk = b.fk
+join c
+on c.pk = a.fk
+*/
+
+-- for 4 tables
+/*
+select * 
+from a join b
+on a.pk = b.fk
+join c
+on c.pk = a.fk
+join d
+on d.pk = c.fk
+*/
+
+
+-------------------------------------------------------
+-- outer join syntax
+
+/* 
+select *
+from a full join b
+on a.pk = b.fk
+join c
+on c.pk = a.fk
+*/
+
+-- Left join
+select * 
+from AccountMaster as am left join TransactionMaster as tm
+on am.ACID = tm.ACID
+
+
+-- who list the customers, who did not have any transactions
+select * 
+from AccountMaster as am left join TransactionMaster as tm
+on am.ACID = tm.ACID
+where TNO is null
+
+
+-- List Names of the Account Holders and their Product names
+select name, ProductName
+from AccountMaster as am , ProductMaster as pm
+where am.PID = pm.PID
+
+
+-- Find out CUSTOMER name wise, TxnType wise number of txns
+select name, TXN_TYPE, count(*) as NoofTxns
+from AccountMaster as am join TransactionMaster as tm
+on am.ACID = tm.ACID
+group by name, TXN_TYPE
+
+-- List Names of the Account holders who deposited cash, and their Product Names
+select name, ProductName
+from AccountMaster as am JOIN TransactionMaster as tm
+on tm.ACID = am.ACID
+JOIN ProductMaster as pm
+on am.PID = pm.PID
+where TXN_TYPE = 'CD'
+
+
+-- Outer join
+-- List the names of the account holders who did not do transactions
+select name
+from AccountMaster as am
+left outer join
+TransactionMaster as tm
+on am.ACID = tm.ACID
+where DOT is NULL
+
+
+
+```
+
+
+![image](https://github.com/user-attachments/assets/d73f948d-179d-43b2-b3c0-b3ed0a8ca317)
+
+
+![image](https://github.com/user-attachments/assets/eb53943d-d4e7-412e-9a09-6f07cdbefe92)
+
+**Cross Join**
+![image](https://github.com/user-attachments/assets/9d055d67-0541-4a35-9c84-a633978cf398)
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+# Day 29
+**Self-Join**
+	Join the table with itself is called as self-join
+	Self-join can have inner join or outer join
+
+![image](https://github.com/user-attachments/assets/15b80724-d6fd-4922-b48d-de8eb453c5a3)
+
+
+```
+
+use IndianBank
+
+
+create table emp
+(
+EID INT PRIMARY KEY,
+name varchar(50) NOT NULL,
+MID int null foreign key references emp(EID)
+)
+go
+
+
+
+insert into emp values (1, 'Ranga', Null)
+insert into emp values (2, 'Thyagu', 1)
+insert into emp values (3, 'Ravi', 1)
+insert into emp values (4, 'Shilpa', 2)
+insert into emp values (5, 'Krishna', 3)
+
+
+Select * from emp
+go
+
+
+select e1.name as empname, e2.name as bossname from emp as e1 left join emp as e2
+on e2.EID = e1.MID
+
+
+```
+
+
+![image](https://github.com/user-attachments/assets/c0022ac1-c250-4b55-a059-34f3ca807af5)
+
+
+![image](https://github.com/user-attachments/assets/3b11c124-632c-4d6f-b8a4-01987614fd08)
+
+
+![image](https://github.com/user-attachments/assets/41711622-2ad6-4e8f-88b1-493388579ed7)
+
+
+```
+
+-- First letter k
+select * from AccountMaster where name like 'k%'
+-- Second letter k
+select * from AccountMaster where name like '_k%'
+-- last letter k
+select * from AccountMaster where name like '%k'
+-- not starting with k
+select * from AccountMaster where name not like 'k%'
+
+
+```
+
+
+![image](https://github.com/user-attachments/assets/005dc012-60fb-4418-a21a-c5a414bc64c7)
+
+
+![image](https://github.com/user-attachments/assets/79eaca68-2ec8-483f-8b44-e2b6957f1aae)
+
+
+![image](https://github.com/user-attachments/assets/b78210a8-ad6e-421d-a563-58ce4687d75e)
+
+
+
+
+```
+
+
+select acid, name, isnull(UBALANCE, 0) as ubal, isnull(CBALANCE,0) as cbal
+from AccountMaster
+
+select * from AccountMaster where CBALANCE is null or UBALANCE is not null
+
+
+
+create table samuel
+(
+eid int primary key,
+fname varchar(100) null,
+mname varchar(100) null,
+lname varchar(100) null
+)
+
+select * from samuel
+
+insert into samuel values ( 1, 'Ravi', null , 'kumar')
+insert into samuel values ( 2, null, null , 'kumar')
+insert into samuel values ( 3, 'Samuel', null , 'kumar')
+insert into samuel values ( 4, 'Ravi', null , null)
+insert into samuel values ( 5, 'Ravi', 'samuel' , 'kumar')
+insert into samuel values ( 6, null, null, null)
+
+
+select coalesce(fname, mname, lname) as empname from samuel
+
+-- without space
+select isnull(fname, ' ') + isnull(mname, ' ') +isnull(lname, ' ')
+from samuel
+-- with space
+select isnull(fname, ' ') + space(1) +isnull(mname, ' ') + space(1) +isnull(lname, ' ')
+from samuel
+
+
+select concat (fname, mname, lname) as fullname
+from Samuel
+
+
+```
+
+![image](https://github.com/user-attachments/assets/5209c8cd-f3ab-4bd2-93ed-95bc8141ec17)
+
+
+```
+
+select acid, name, nullif(CBALANCE, ubalance) as result
+from AccountMaster
+
+```
+
+![image](https://github.com/user-attachments/assets/73ff1935-0528-43ff-9bf8-7b5b1e027af2)
+
+
+
