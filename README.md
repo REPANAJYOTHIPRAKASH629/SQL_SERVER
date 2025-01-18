@@ -3504,9 +3504,9 @@ where CBALANCE between 1000 and 5000
 select * from AccountMaster
 where year(doo) between 2020 and 2026
 
-![Uploading image.png…]()
+![image](https://github.com/user-attachments/assets/b0184267-f867-49d4-8302-809e00defad0)
 
-![Uploading image.png…]()
+![image](https://github.com/user-attachments/assets/a112a3ef-d7ef-4506-aafd-0236afef77c3)
 
 ```
 
@@ -3539,5 +3539,212 @@ select cntt = count(*) from AccountMaster
 ```
 
 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
+# Day 32 Sub Queries & correlated Sub Queries
+
+
+![image](https://github.com/user-attachments/assets/53c27e7c-e7a4-4073-a973-9843d1aaba9a)
+![image](https://github.com/user-attachments/assets/a6c9a84b-b799-45d9-807b-f076feb89766)
+
+```
+
+-- Sub Query / Nested Query / Inner Query
+
+-- who has the highest balance in the bank
+-- Fail
+select * from AccountMaster
+
+-- Fail
+select max(cbalance) from AccountMaster
+
+-- Fail
+select name, max(cbalance) from AccountMaster order by name
+
+-- Fail
+select top 1 name, max(CBALANCE) from AccountMaster
+group by name
+order by CBALANCE desc
+
+-- what is max balance
+-- who has it
+-- Correct way
+select name,CBALANCE from AccountMaster
+where CBALANCE = (Select max(cbalance) from AccountMaster)
+
+
+
+-- who has the 2nd highest balance in the bank
+select name,CBALANCE from AccountMaster
+where CBALANCE = (Select max(cbalance) from AccountMaster 
+				  where CBALANCE <> 
+				 (Select max(cbalance) from AccountMaster))
+
+
+-- who has the 2nd highest balance in the bank
+select name,CBALANCE from AccountMaster
+where CBALANCE IN (Select max(cbalance) from AccountMaster 
+				  where CBALANCE < 
+				 (Select max(cbalance) from AccountMaster))
+
+
+-- we can do 32 levels of Nesting of sub queries
+
+
+-- who has the 10th highest balance in the bank
+-- 1. sort the data in descending order
+-- 2. distinct
+-- 3. top 10 / top n
+-- 4. Min
+-- 5. name
+select name, cbalance
+from AccountMaster 
+where CBALANCE = 
+				(select min(cbalance) from AccountMaster
+				 where CBALANCE IN (
+									select distinct top 10 cbalance 
+									from AccountMaster 
+									order by CBALANCE desc)
+				)
+
+
+```
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+# Day 33
+
+```
+
+select avg(Cbalance) from AccountMaster
+
+
+-- Subquery in SELECT statement
+-- Balance and average balance , difference
+select acid, name, cbalance - (select avg(Cbalance) from AccountMaster) as diff
+from AccountMaster
+group by acid, name, cbalance
+
+-- or
+-- Balance and average balance , difference
+select acid, name, cbalance - (135500.00) as diff
+from AccountMaster
+group by acid, name, cbalance
+
+
+select * from emp
+-- Interview question
+-- Find out the employee whos salary same as other employee salary
+Select name, salary
+from emp
+where salary IN (
+				select salary
+				from emp
+				group by salary
+				having count(*) > 1
+				)
+				order by salary
+
+
+```
+
+
+![image](https://github.com/user-attachments/assets/87581e71-b2de-4e0c-8fbe-b43e8f9558e1)
+
+![Uploading image.png…]()
+
+![Uploading image.png…]()
+
+![Uploading image.png…]()
+
+![Uploading image.png…]()
+
+![Uploading image.png…]()
+
+
+```
+
+select avg(Cbalance) from AccountMaster
+
+
+-- Subquery in SELECT statement
+-- Balance and average balance , difference
+select acid, name, cbalance - (select avg(Cbalance) from AccountMaster) as diff
+from AccountMaster
+group by acid, name, cbalance
+
+-- or
+-- Balance and average balance , difference
+select acid, name, cbalance - (135500.00) as diff
+from AccountMaster
+group by acid, name, cbalance
+
+
+select * from emp
+-- Interview question
+-- Find out the employee whos salary same as other employee salary
+Select name, salary
+from emp
+where salary IN (
+				select salary
+				from emp
+				group by salary
+				having count(*) > 1
+				)
+				order by salary
+
+-- Get employee ids as comma seperated values in single column
+select STRING_AGG(acid, ',') as row
+from AccountMaster
+
+
+
+
+select acid, name, cbalance
+from AccountMaster
+where cbalance = (select max(cbalance) from AccountMaster)
+
+
+
+-- Correlated Sub queries
+-- List the names of the Account Holders who have done transactions
+-- Join way
+select distinct a.acid, name
+from AccountMaster as a JOIN TransactionMaster as t ON a.ACID = t.ACID
+
+-- Left Join way
+select distinct a.acid, name
+from AccountMaster as a left JOIN TransactionMaster as t ON a.ACID = t.ACID
+where DOT is null
+
+-- Sub query
+select acid, name
+from AccountMaster
+where acid IN (
+				select distinct acid
+				from TransactionMaster
+			   )
+
+-- correlated query
+select acid, name
+from AccountMaster as am
+where exists (
+			   select * 
+			   from TransactionMaster as tm
+			   where am.ACID = tm.ACID
+				)
+
+select acid, name
+from AccountMaster as am
+where not exists (
+			   select * 
+			   from TransactionMaster as tm
+			   where am.ACID = tm.ACID
+				)
+
+
+```
+
+![Uploading image.png…]()
