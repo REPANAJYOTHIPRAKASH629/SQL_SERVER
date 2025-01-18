@@ -3653,15 +3653,16 @@ where salary IN (
 
 ![image](https://github.com/user-attachments/assets/87581e71-b2de-4e0c-8fbe-b43e8f9558e1)
 
-![Uploading image.png…]()
+![image](https://github.com/user-attachments/assets/6c26f6d4-65f9-411b-ba1b-490724e84393)
 
-![Uploading image.png…]()
+![image](https://github.com/user-attachments/assets/5b9901e5-f150-4703-a175-52e5941bc566)
 
-![Uploading image.png…]()
+![image](https://github.com/user-attachments/assets/d2d2f7f4-6611-441b-9e35-cf7f253c214e)
 
-![Uploading image.png…]()
+![image](https://github.com/user-attachments/assets/1cf00c92-86fd-4ef3-a249-567bb59222b1)
 
-![Uploading image.png…]()
+![image](https://github.com/user-attachments/assets/486c2e94-4ec6-487a-8714-1da1ac783a3a)
+
 
 
 ```
@@ -3746,5 +3747,6 @@ where not exists (
 
 
 ```
+![image](https://github.com/user-attachments/assets/0b8b4518-0239-415f-9b20-aad0fbc45ec7)
 
-![Uploading image.png…]()
+
