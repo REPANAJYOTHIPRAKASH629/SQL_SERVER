@@ -4073,7 +4073,7 @@ where grpNO = 1
 
 # Day 36 Common Table Expressions (CTE)
 
-![image](https://github.com/user-attachments/assets/66db3d58-6f78-4cac-9b9b-1506a8917dbf)
+![image](https://github.com/user-attachments/assets/d0aca70d-45b6-4d61-bee6-e476ebeacf86)
 
 ![image](https://github.com/user-attachments/assets/8645b739-f42f-4c74-af3e-ad78b88bad0f)
 
