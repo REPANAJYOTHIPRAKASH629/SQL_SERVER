@@ -1,4 +1,4 @@
-# SQL_SERVER
+![image](https://github.com/user-attachments/assets/9170ad45-7d9c-4343-8039-90fd03dd0a58)![image](https://github.com/user-attachments/assets/a631ee59-c274-4cba-8c7b-d3831a171598)# SQL_SERVER
 
 
 # Day 1  Intro to DBMS
@@ -4068,10 +4068,105 @@ where grpNO = 1
 
 
 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+# Day 36 Common Table Expressions (CTE)
+
+![image](https://github.com/user-attachments/assets/66db3d58-6f78-4cac-9b9b-1506a8917dbf)
+
+![image](https://github.com/user-attachments/assets/8645b739-f42f-4c74-af3e-ad78b88bad0f)
+
+![image](https://github.com/user-attachments/assets/73fa243a-c0e1-41a9-b5a7-6a2193651479)
 
 
 
+```
 
+-- get the 5th row using derived tables
+select * 
+from (
+select acid, name, cbalance, ROW_NUMBER() over (order by ACID) as RNO
+from AccountMaster
+) as k
+where RNO = 5
+
+
+-- CTE
+with k
+as 
+(
+	select acid, name, cbalance, ROW_NUMBER() over (order by ACID) as RNO
+	from AccountMaster
+)
+select * from k
+where rno = 5;
+-- After CTE must use semicolon to end the query
+
+with k
+as 
+(
+	select acid, name, cbalance, ROW_NUMBER() over (order by ACID) as RNO
+	from AccountMaster
+)
+select * from k
+where rno = 1
+
+
+-- Find out the Branch, Which has highest number of customers
+select BRID, count(*) as cnt
+from AccountMaster
+group by BRID
+
+select max(cnt)
+from (
+		select BRID, count(*) as cnt
+		from AccountMaster
+		group by BRID
+		) as k 
+
+
+-- which brid
+-- using derived table
+select BRID
+from (
+		select BRID, count(*) as cnt
+		from AccountMaster
+		group by BRID
+		) as k 
+		where cnt = (select max(cnt)
+		from (
+				select BRID, count(*) as cnt
+				from AccountMaster
+				group by BRID
+				) as k 
+		);
+
+
+
+-- CTE
+with k
+as
+(
+select BRID, count(*) as cnt
+from AccountMaster
+group by BRID
+)
+select BRID from K  where cnt = (select max(cnt) from k)
+
+select * from k -- error
+
+
+
+select BRID, count(*) as cnt into #Tmp
+from AccountMaster
+group by BRID
+
+select * from #Tmp where cnt = (Select max(cnt) from #Tmp)
+
+select * from #Tmp
+
+```
 
 
 
