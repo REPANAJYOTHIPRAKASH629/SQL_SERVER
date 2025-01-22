@@ -3750,3 +3750,371 @@ where not exists (
 ![image](https://github.com/user-attachments/assets/0b8b4518-0239-415f-9b20-aad0fbc45ec7)
 
 
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+# Day 34 Derived Tables
+
+
+![image](https://github.com/user-attachments/assets/a27c87b2-f718-49ff-a606-df67db928157)
+
+![image](https://github.com/user-attachments/assets/90936b08-9c5e-42f5-9f2c-acb8af2d8fb8)
+
+![image](https://github.com/user-attachments/assets/4477462f-03f3-4df9-8bd4-f7d5c879c34b)
+
+```
+
+-- error without aliasing
+select * 
+from (Select * from AccountMaster) 
+
+-- derived table must in FROM clasue and must have a alias name
+select * 
+from (Select * from AccountMaster) as k
+
+
+
+
+select * from AccountMaster
+select * from TransactionMaster
+
+
+-- list the ACID, NAME and NoOfTxns where the Account holder has done more than 1 transactions fro the year 2020
+select am.ACID, Name, count(*) as cnt
+from (AccountMaster as am
+JOIN TransactionMaster as tm
+on am.acid = tm.acid)
+where YEAR(dot) = 2020
+group by am.acid, name
+having count(*) > 1
+
+/*
+ORDER OF EXECUTION
+-------------------
+FROM 
+JOINS
+WHERE
+GROUP BY
+AGGREGATION
+HAVING
+SELECT
+*/
+
+-- using derived tables concept
+-- list the ACID, NAME and NoOfTxns where the Account holder has done more than 1 transactions fro the year 2020
+
+select am.acid, name, cnt 
+from AccountMaster as am 
+join(
+	select acid, count(*) as cnt
+	from TransactionMaster
+	where year(DOT) = 2020
+	group by acid
+	having count(*) > 1
+	) as k
+on am.ACID = k.ACID
+
+
+-- Find out MONTH WISE, Number of New Customers ....?
+
+
+
+-- create a empinfo table
+create table EmpInfo
+(
+	EID int primary key,
+	empname varchar(100) not null,
+	salary money not null,
+	deptname varchar(25) not null
+)
+
+-- Inserting 100 rows of sample data into the EmpInfo table
+
+INSERT INTO EmpInfo (EID, empname, salary, deptname) VALUES
+(1, 'Amit Sharma', 50000.00, 'IT'),
+(2, 'Priya Kapoor', 55000.00, 'HR'),
+(3, 'Rajesh Kumar', 48000.00, 'Finance'),
+(4, 'Neha Gupta', 52000.00, 'Marketing'),
+(5, 'Sandeep Yadav', 60000.00, 'IT'),
+(6, 'Anjali Verma', 53000.00, 'Sales'),
+(7, 'Vikram Singh', 48000.00, 'IT'),
+(8, 'Pooja Desai', 45000.00, 'HR'),
+(9, 'Suresh Reddy', 47000.00, 'Operations'),
+(10, 'Ravi Menon', 49000.00, 'Finance'),
+(11, 'Sunita Pandey', 55000.00, 'Marketing'),
+(12, 'Ravi Kumar', 50000.00, 'Sales'),
+(13, 'Manish Joshi', 46000.00, 'Finance'),
+(14, 'Sushma Sharma', 51000.00, 'HR'),
+(15, 'Akash Nair', 48000.00, 'Operations'),
+(16, 'Shweta Iyer', 53000.00, 'IT'),
+(17, 'Kiran Patel', 47000.00, 'Marketing'),
+(18, 'Pradeep Rao', 55000.00, 'Sales'),
+(19, 'Jyoti Singh', 46000.00, 'HR'),
+(20, 'Gaurav Mehta', 53000.00, 'Finance'),
+(21, 'Vandana Chauhan', 52000.00, 'IT'),
+(22, 'Manoj Verma', 48000.00, 'Sales'),
+(23, 'Tanuja Joshi', 45000.00, 'Operations'),
+(24, 'Ramesh Sharma', 60000.00, 'Finance'),
+(25, 'Kavita Bhatia', 51000.00, 'HR'),
+(26, 'Naveen Agarwal', 48000.00, 'IT'),
+(27, 'Sunil Kumar', 53000.00, 'Marketing'),
+(28, 'Sushil Mehta', 49000.00, 'Sales'),
+(29, 'Geeta Kapoor', 46000.00, 'Operations'),
+(30, 'Shivani Rani', 52000.00, 'HR'),
+(31, 'Ashok Pandey', 55000.00, 'IT'),
+(32, 'Aarti Gupta', 50000.00, 'Finance'),
+(33, 'Uday Shankar', 47000.00, 'Sales'),
+(34, 'Ritika Tiwari', 48000.00, 'Operations'),
+(35, 'Vijay Prasad', 56000.00, 'HR'),
+(36, 'Deepak Yadav', 52000.00, 'Finance'),
+(37, 'Neelam Chauhan', 49000.00, 'Sales'),
+(38, 'Harish Kumar', 51000.00, 'IT'),
+(39, 'Priya Tiwari', 45000.00, 'Operations'),
+(40, 'Anand Sharma', 53000.00, 'Marketing'),
+(41, 'Rita Patel', 48000.00, 'Sales'),
+(42, 'Avinash Reddy', 60000.00, 'HR'),
+(43, 'Bhoomi Iyer', 47000.00, 'IT'),
+(44, 'Vikas Mehta', 50000.00, 'Operations'),
+(45, 'Neha Joshi', 48000.00, 'Marketing'),
+(46, 'Kunal Gupta', 52000.00, 'Sales'),
+(47, 'Akshay Bhatia', 53000.00, 'IT'),
+(48, 'Ritu Rao', 46000.00, 'Finance'),
+(49, 'Arvind Kumar', 54000.00, 'HR'),
+(50, 'Deepika Singh', 55000.00, 'IT'),
+(51, 'Anil Sharma', 48000.00, 'Sales'),
+(52, 'Preeti Mehta', 51000.00, 'Marketing'),
+(53, 'Lalit Patel', 46000.00, 'Operations'),
+(54, 'Rajani Desai', 50000.00, 'HR'),
+(55, 'Jagdish Yadav', 53000.00, 'IT'),
+(56, 'Sangeeta Kumar', 52000.00, 'Sales'),
+(57, 'Ankur Reddy', 48000.00, 'Finance'),
+(58, 'Swati Chauhan', 47000.00, 'Operations'),
+(59, 'Kiran Gupta', 50000.00, 'Marketing'),
+(60, 'Neha Mehta', 51000.00, 'IT'),
+(61, 'Sunil Desai', 54000.00, 'Sales'),
+(62, 'Pooja Sharma', 55000.00, 'Operations'),
+(63, 'Madhuri Patel', 48000.00, 'HR'),
+(64, 'Ravindra Singh', 53000.00, 'Finance'),
+(65, 'Pratibha Iyer', 50000.00, 'IT'),
+(66, 'Amit Verma', 47000.00, 'Sales'),
+(67, 'Divya Joshi', 49000.00, 'Marketing'),
+(68, 'Anup Yadav', 46000.00, 'Operations'),
+(69, 'Rama Gupta', 52000.00, 'HR'),
+(70, 'Shivendra Reddy', 51000.00, 'Sales'),
+(71, 'Suraj Kumar', 53000.00, 'Finance'),
+(72, 'Pankaj Mehta', 48000.00, 'IT'),
+(73, 'Harleen Kaur', 45000.00, 'HR'),
+(74, 'Rohit Bhatia', 54000.00, 'Marketing'),
+(75, 'Preeti Verma', 49000.00, 'Sales'),
+(76, 'Vinay Desai', 47000.00, 'Operations'),
+(77, 'Raghav Reddy', 50000.00, 'IT'),
+(78, 'Asha Pandey', 55000.00, 'HR'),
+(79, 'Sandeep Verma', 53000.00, 'Finance'),
+(80, 'Anita Gupta', 51000.00, 'Marketing'),
+(81, 'Tanu Mehta', 48000.00, 'Sales'),
+(82, 'Niraj Kumar', 52000.00, 'Operations'),
+(83, 'Gaurav Desai', 50000.00, 'HR'),
+(84, 'Laxmi Iyer', 53000.00, 'IT'),
+(85, 'Ajay Patel', 46000.00, 'Sales'),
+(86, 'Renu Kapoor', 51000.00, 'Finance'),
+(87, 'Kushal Yadav', 48000.00, 'Marketing'),
+(88, 'Saurabh Mehta', 54000.00, 'HR'),
+(89, 'Sonal Rao', 55000.00, 'IT'),
+(90, 'Karan Singh', 47000.00, 'Sales'),
+(91, 'Poonam Sharma', 52000.00, 'Operations'),
+(92, 'Jaya Patel', 53000.00, 'HR'),
+(93, 'Indu Gupta', 49000.00, 'Finance'),
+(94, 'Ravi Desai', 46000.00, 'Marketing'),
+(95, 'Alok Kumar', 50000.00, 'IT'),
+(96, 'Sarika Yadav', 55000.00, 'Sales'),
+(97, 'Maya Verma', 51000.00, 'HR'),
+(98, 'Sidharth Mehta', 54000.00, 'Operations'),
+(99, 'Rekha Patel', 48000.00, 'IT'),
+(100, 'Vikram Gupta', 52000.00, 'Finance');
+
+
+select * 
+from EmpInfo as a
+join (select deptname, avg(salary) as avg_salary
+		from EmpInfo
+		group by deptname
+	) as k
+on a.deptname = k.deptname
+where salary > avg_salary
+
+
+-- cube
+select itemname, color, sum(qnty) as total
+from item
+group by itemname color with CUBE
+
+-- ROLLUP
+select itemname, color, sum(qnty) as total
+from item
+group by itemname color with ROLLUP
+
+```
+
+![image](https://github.com/user-attachments/assets/6333b8b0-b154-4713-ac57-59580a9bc0c7)
+
+![image](https://github.com/user-attachments/assets/f65f6ef0-04be-4873-abf2-c890a7d5e3fe)
+
+![image](https://github.com/user-attachments/assets/f4c7f39b-79e7-4c95-9626-23e2cbe274d3)
+
+![image](https://github.com/user-attachments/assets/d7c08f85-2155-4d93-84e0-7d1803c5bc94)
+
+![image](https://github.com/user-attachments/assets/a2545e14-9d31-4d47-93cf-d70473b2db59)
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+# Day 35 Ranking Functions
+
+![image](https://github.com/user-attachments/assets/b069972a-8d29-49ff-bd9f-2cfc58c55d19)
+
+![image](https://github.com/user-attachments/assets/94ababdc-746b-4769-9da0-5ef7ba60090e)
+
+![image](https://github.com/user-attachments/assets/b5073fdd-274f-40be-b8b3-29ec85484ff0)
+
+![image](https://github.com/user-attachments/assets/956b75c8-59ec-49e7-9f9d-b25910cf57a7)
+
+```
+
+-- Ranking Functions
+
+
+-- ROW_NUMBER()
+select acid, name, cbalance, BRID, ROW_NUMBER() over (Order by ACID asc) as RNO
+from AccountMaster
+
+-- branch wise row number
+select acid, name, cbalance, BRID, ROW_NUMBER() over (Partition by BRID Order by ACID asc) as RNO
+from AccountMaster
+
+-- Get 5th row
+select * 
+from (
+		select acid, name, cbalance, BRID, ROW_NUMBER() over (Order by ACID asc) as RNO
+		from AccountMaster
+		)as k
+where RNO = 5
+
+
+-- Get 4th row on each branch
+select * 
+from (
+		select acid, name, cbalance, BRID, ROW_NUMBER() over (Partition by BRID Order by ACID asc) as RNO
+		from AccountMaster
+		)as k
+where RNO = 4
+
+-- Get every 5th row
+select * 
+from (
+		select acid, name, cbalance, BRID, ROW_NUMBER() over (Order by ACID asc) as RNO
+		from AccountMaster
+		)as k
+where RNO % 5 = 0
+
+
+-- RANK()
+select acid, name, cbalance, BRID, RANK() over (Order by cbalance desc) as RNO
+from AccountMaster
+
+-- branch wise ranking
+select *
+from (
+		select acid, name, cbalance, BRID, ROW_NUMBER() over (Partition by BRID Order by CBALANCE asc) as RANKNO
+		from AccountMaster 
+	  ) as k
+
+
+-- every branch wise ranking
+select *
+from (
+		select acid, name, cbalance, BRID, ROW_NUMBER() over (Partition by BRID Order by CBALANCE asc) as RANKNO
+		from AccountMaster 
+	  ) as k
+where RANKNO = 1
+
+-- DENSE_RANK()
+select acid, name, cbalance, BRID, dense_rank() over (Order by cbalance desc) as RNO
+from AccountMaster
+
+
+-- NTILE()
+select acid, name, cbalance, BRID, NTILE(4) over (order by acid asc) as grpNO
+from AccountMaster
+
+
+-- get half of the data from the table NTILE() 
+select * 
+from (
+		select acid, name, cbalance, BRID, NTILE(2) over (order by acid asc) as grpNO
+		from AccountMaster
+	 ) as k
+where grpNO = 1
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
