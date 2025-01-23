@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/9170ad45-7d9c-4343-8039-90fd03dd0a58)![image](https://github.com/user-attachments/assets/a631ee59-c274-4cba-8c7b-d3831a171598)# SQL_SERVER
+# SQL_SERVER
 
 
 # Day 1  Intro to DBMS
@@ -4078,7 +4078,6 @@ where grpNO = 1
 ![image](https://github.com/user-attachments/assets/8645b739-f42f-4c74-af3e-ad78b88bad0f)
 
 ![image](https://github.com/user-attachments/assets/73fa243a-c0e1-41a9-b5a7-6a2193651479)
-
 
 
 ```
