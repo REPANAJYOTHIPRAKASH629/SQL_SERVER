@@ -4169,16 +4169,185 @@ select * from #Tmp
 ```
 
 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+# Day 37 Remove Duplicates, Running Tables, System Tables
+
+```
+
+-- Remove (DELETE) duplicate rows using CTE
+CREATE TABLE EMPP
+(
+NAME VARCHAR(100)
+)
+GO
+
+-- Insert sample data with duplicates
+INSERT INTO EMPP (NAME) VALUES 
+('John'),
+('Alice'),
+('Bob'),
+('John'),   -- Duplicate
+('Alice'),  -- Duplicate
+('Charlie');
+GO
+
+-- Read the Data
+select * from empp
+
+
+-- Findout duplicates
+SELECT NAME, COUNT(*) AS CNT
+FROM EMPP
+GROUP BY NAME
+HAVING COUNT(*) > 1
+
+-- Write a query to delete duplicate rows from table
+-- using CTE
+with my_cte
+as
+(
+	select name, ROW_NUMBER() over (partition by name order by name asc) as rno
+	from empp
+)
+
+
+delete  
+from my_cte
+where rno > 1
+
+
+select name 
+from my_cte
+where rno > 1;
+
+
+```
+
+**Running Tables**
+![image](https://github.com/user-attachments/assets/27efd70c-1b8c-40ed-85db-413c67db61fc)
+![image](https://github.com/user-attachments/assets/3c5e4f7c-4b35-43c6-acbc-5d99fe2fe898)
+![image](https://github.com/user-attachments/assets/194a7bb0-94f9-49a6-a946-8f438d5daf4c)
+![image](https://github.com/user-attachments/assets/b7b7ba92-1b8e-4c07-9153-f768fe773ad7)
+
+```
+
+
+-- Running Total
+SELECT ACID, NAME, CBALANCE, SUM(CBALANCE)
+OVER (ORDER BY ACID) as [RUNNING TOTAL]
+FROM AccountMaster
+
+
+-- Branch wise running total
+SELECT ACID, NAME, CBALANCE, BRID, SUM(CBALANCE)
+OVER (PARTITION BY BRID ORDER BY ACID ASC) as [RUNNING TOTAL]
+FROM AccountMaster
+
+-- Running total using sub query
+select acid, name, cbalance, brid, (select sum(am1.cbalance) 
+									from AccountMaster as am1 
+									where am1.ACID <= am.acid
+									) as [Running Total]
+from AccountMaster as am
+order by acid
+
+
+-- Running total using joins
+select am.acid, am.name,am.cbalance, am.brid, sum(am1.cbalance) as [RunningTotal]
+from AccountMaster as am
+inner join AccountMaster as am1
+on am1.acid <= am.acid
+group by am.acid, am.name,am.CBALANCE,am.brid
+order by am.acid
+
+```
+
+![image](https://github.com/user-attachments/assets/cd596ec5-23ec-4e30-91df-ea07e082a7e8)
+![image](https://github.com/user-attachments/assets/8ce413e6-99a2-4c1f-a232-b857be848db1)
+
+Single query to modify M-> F and F-> M
 
 
 
+**System Tables**
+![image](https://github.com/user-attachments/assets/a2d0a154-f5d9-4027-8d24-f03dc0b69ad9)
+
+
+```
 
 
 
+-- System Tables and Databases
+
+
+-- Get all Tables names in Indian Bank
+select * from sys.tables
+
+select name from sys.tables
+
+select 'select * from ' +name from sys.tables
+/*
+OUTPUT
+-------------------
+select * from emp
+select * from samuel
+select * from Customer
+select * from EmpNew
+select * from EmpNew1
+select * from empl
+select * from EmpInfo
+select * from AccountMaster
+select * from ProductMaster
+select * from EMPP
+select * from RegionMaster
+select * from BranchMaster
+select * from UserMaster
+select * from TransactionMaster
+select * from sysdiagrams
+select * from AM_SB_Customers
+select * from BranchWiseCustCnt
+select * from am_bkp_nov192024
+select * from am_bkp
+*/
+
+select count(*) from sys.tables
+
+-- Get all coulumn names
+select * from sys.columns
+
+
+-- joins
+select a.name as tablename , b.name as columnname
+from sys.tables as a 
+join sys.columns as b
+on a.object_id = b.object_id
 
 
 
+select count(*) as cnt
+from sys.tables as a 
+join sys.columns as b
+on a.object_id = b.object_id
+where a.name = 'AccountMaster'
 
+
+select * from sys.databases
+select count(*) from sys.databases
+
+-- If EMP table exists then you drop it and create new one
+if exists ( select * from sys.tables where name = 'EMP')
+	drop table emp
+go
+create table emp
+(
+	eid int,
+	ename varchar(100)
+)
+go
+
+```
 
 
 
